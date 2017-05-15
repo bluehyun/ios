@@ -61,7 +61,6 @@ print(str)
 
 var optionalEmail: String? = "bluehyunj@gmail.com"
 
-print(optionalEmail)
 if let email = optionalEmail{
     print(email)
 }
@@ -196,3 +195,95 @@ let sum2 : (Int, Int) -> Int = { $0 + $1 }
 
 sum2(10,0)
 
+
+//callback func
+
+func user(id: Int, completion:(String) -> Void){
+    //비동기
+    completion("bluehyun")
+}
+//name 의 타입을 user func 에 정의 되어 있음
+// return type 또한 정의 되어 있음
+// 마지막 파라메터가 클로저의 경우 클로저 명 삭제 가능
+
+user(id:123, completion: { (name:String) -> Void in
+    print(name)
+})
+
+
+//0 부터 10까지의 배열
+//짝수만 골라서
+//곱하기 2를 하고
+//그 값을 더하시오
+
+let su:[Int] = [1,2,3,4,5,6,7,8,9,10]
+
+
+
+(0...10)
+    .filter{$0 % 2 == 0}
+    .map{$0 * 2}
+    .reduce(0,+)
+
+
+// array filter , lazy 를 잘 사용하면 반복요소를 줄일수 있다.
+// filter 는 배열을 대상으로 반복문을 돌림
+
+
+
+let numbers: [Int] = [0, 3, 6, 12, 2, 14, 13]
+
+let value = numbers.lazy
+    .filter{$0 == 12}
+    .first ?? 0
+
+print(value)
+
+//value 는 옵셔날 타입이 아니라 초기값이 0 인 int 가 됨.
+//코드 축약이 무슨 맞춤법 줄임수준일세
+
+
+//클래스와 구조체
+
+//클래스 는 상속 가능
+//슈퍼 클래스를 하나만 가질 수 있다
+//참조 타입
+class Dog{
+    var name : String // stored Property (저장되는 속성)
+    var nameCount: Int { // Computed Property(계산되는 속성)
+        return name.characters.count
+        
+        /*
+        getter , setter 가 구현되어 있음
+        get{
+            return _age
+        }
+        set {
+            _age = newValue
+        }
+        */
+    }
+    
+    init(name: String){
+        self.name = name
+    }
+}
+
+//구조체
+//상속 불가 및 슈퍼 클래스를 가질 수 없다
+//벨류 타입
+struct Cat {
+    var name : String
+}
+
+let dog1 = Dog(name:"찡코")
+let dog2 =  dog1
+dog1.name = "멍멍이"
+print(dog2.name)
+
+//Value Semantic
+var cat1 = Cat(name:"야옹이")
+var cat2 = cat1
+cat1.name = "냐옹이"
+
+print(cat1.name)
