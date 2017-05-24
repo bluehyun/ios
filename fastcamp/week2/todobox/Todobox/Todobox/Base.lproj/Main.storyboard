@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Mce-zk-Bkh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--TodoBox-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Todobox" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TaskListViewController" customModule="Todobox" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -35,6 +35,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="JFy-Ve-255"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="DMN-Zx-IdN"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -46,13 +47,100 @@
                             <constraint firstAttribute="trailing" secondItem="Ekc-e3-JGS" secondAttribute="trailing" id="erv-b9-wmD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="TodoBox" id="GDS-O6-08S">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mwO-Ho-Wbw">
+                            <connections>
+                                <segue destination="WSJ-br-dgs" kind="showDetail" id="nFE-zf-wAy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Ekc-e3-JGS" id="a5w-Io-wbx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+            <point key="canvasLocation" x="119" y="145"/>
+        </scene>
+        <!--할일추가-->
+        <scene sceneID="fz4-Oh-YV5">
+            <objects>
+                <viewController id="mGf-Uc-Aao" customClass="TaskEditViewController" customModule="Todobox" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Jg-as-TYh"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cyy-0f-rho"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2wj-Hr-iYp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="여기에 제목을 입력하세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fgR-6U-cDO">
+                                <rect key="frame" x="20" y="84" width="335" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fgR-6U-cDO" secondAttribute="trailing" constant="20" id="Tqv-JQ-m99"/>
+                            <constraint firstItem="fgR-6U-cDO" firstAttribute="top" secondItem="9Jg-as-TYh" secondAttribute="bottom" constant="20" id="hyJ-nb-ed4"/>
+                            <constraint firstItem="fgR-6U-cDO" firstAttribute="leading" secondItem="2wj-Hr-iYp" secondAttribute="leading" constant="20" id="xqk-CY-Kcx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="할일추가" id="BDW-Mj-s66">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="jPD-q7-tgb">
+                            <connections>
+                                <action selector="cancelButtonDidTap" destination="mGf-Uc-Aao" id="RpF-nc-HRQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="N2K-QU-KcO">
+                            <connections>
+                                <action selector="doneButtionDidTap" destination="mGf-Uc-Aao" id="0gE-aF-32Q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="fgR-6U-cDO" id="POL-eJ-ZxE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="61E-AR-QVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1056.8" y="857.72113943028489"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Voa-lw-hVD">
+            <objects>
+                <navigationController id="Mce-zk-Bkh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bs0-28-bTv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="bMG-Rn-eQi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vrZ-gB-yNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-599" y="146"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wwL-Yt-tjp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WSJ-br-dgs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ak2-Sf-u8v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mGf-Uc-Aao" kind="relationship" relationship="rootViewController" id="VPD-6I-1x6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DeV-YJ-4xM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="857.72113943028489"/>
         </scene>
     </scenes>
 </document>
